@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<!--
+  赵子奕 · AI 产品作品集（仪表盘版）
+  ============================================================
+  要替换的东西只有两类：
+
+  1. 图片 —— 放进同级 images 文件夹，按这些文件名：
+        images/aec.jpg          ① AI Employee Center 首页
+        images/citogenesis.jpg  ② 乌合之帖 游戏画面
+        images/todo.jpg         ③ 桌面待办 截图
+        images/xiaoyu.png       ④ 小鱼 仪表盘
+     没放的地方显示灰色占位框，不会破图。
+
+  2. 简历 PDF —— 改名成 resume.pdf 放同级。
+
+  已填好（2026-10-08）：微信号、PRD（aec-prd.pdf，15 页）、简历（resume.pdf）。
+  要改内容直接改下面 body 里的文字即可。
+
+  单列版备份在 index-单列版(备份).html，想换回去把它改名成 index.html 即可。
+  ============================================================
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>赵子奕 · AI 产品作品集</title>
+<style>
+  :root{
+    --ink:#14181d;
+    --body:#39424d;
+    --muted:#727c89;
+    --line:#e7eaee;
+    --accent:#1a3e6e;
+    --accent-soft:#f3f7fc;
+    --bg:#fbfcfd;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);line-height:1.72;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",
+      "Hiragino Sans GB","Microsoft YaHei","HarmonyOS Sans SC","Source Han Sans SC",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1000px;margin:0 auto;padding:56px 26px 96px}
+
+  /* ---------- 头部 ---------- */
+  h1{font-size:33px;letter-spacing:.5px;margin:0 0 9px;font-weight:700}
+  .role{font-size:16px;color:var(--accent);font-weight:600;margin:0 0 6px;letter-spacing:.3px}
+  .meta{font-size:13.5px;color:var(--muted);margin:0;line-height:1.9}
+  .meta a{color:var(--accent);text-decoration:none;border-bottom:1px solid #c8d6e8}
+  .meta a:hover{border-bottom-color:var(--accent)}
+  .meta .dot{margin:0 8px;color:#c6ccd4}
+
+  /* ---------- 数字概览 ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:30px 0 0}
+  .stat{
+    background:#fff;border:1px solid #dde6f2;border-radius:10px;
+    padding:16px 12px 14px;text-align:center;
+  }
+  .stat .n{
+    display:block;font-size:27px;font-weight:700;color:var(--accent);
+    line-height:1.15;letter-spacing:-.5px;
+  }
+  .stat .l{display:block;font-size:12px;color:var(--muted);margin-top:5px;letter-spacing:.2px}
+
+  /* ---------- 主线一句 ---------- */
+  .spine{
+    margin:22px 0 0;padding:15px 20px;
+    background:var(--accent-soft);border-radius:9px;
+    font-size:14.5px;color:#243a56;line-height:1.8;
+  }
+  .spine b{color:var(--accent)}
+
+  /* ---------- 卡片网格 ---------- */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:17px;margin-top:17px}
+  .pcard{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:19px 19px 17px;display:flex;flex-direction:column;
+  }
+  .pcard h3{
+    font-size:16.5px;font-weight:700;margin:0;line-height:1.45;
+    display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;
+  }
+  .idx{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:1px;flex:none}
+  .sub{font-size:12.5px;color:var(--muted);margin:3px 0 0}
+
+  /* ---------- 图 ---------- */
+  .shot{
+    position:relative;margin:15px 0 0;border-radius:9px;overflow:hidden;
+    background:#f1f3f6;border:1px solid var(--line);
+  }
+  .shot img{display:block;width:100%;height:auto}
+  .shot .hint{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    min-height:200px;color:#9aa4b0;font-size:12.5px;
+    border:1px dashed #d3d9e1;border-radius:9px;
+  }
+
+  /* ---------- 边界决策 ---------- */
+  .decision{
+    margin:15px 0 0;padding:10px 13px;font-size:13.5px;line-height:1.68;
+    background:var(--accent-soft);border-left:3px solid var(--accent);
+    border-radius:0 7px 7px 0;color:#243a56;
+  }
+  .decision b{color:var(--accent);margin-right:6px}
+
+  .body{margin:13px 0 0;font-size:14px;color:var(--body)}
+  .body b{color:var(--ink)}
+
+  .flow{
+    margin:11px 0 0;font-size:12.5px;color:var(--accent);
+    background:#f8fafd;border:1px solid #dde5ef;border-radius:7px;
+    padding:9px 12px;line-height:1.85;
+  }
+  .tech{margin:10px 0 0;font-size:12.5px;color:var(--muted)}
+
+  /* ---------- 链接 ---------- */
+  .links{margin-top:auto;padding-top:15px;display:flex;flex-wrap:wrap;gap:8px}
+  .links a{
+    display:inline-block;padding:5px 14px;border-radius:999px;
+    border:1px solid #d5dde8;color:var(--accent);text-decoration:none;
+    font-size:13px;background:#fff;transition:all .16s ease;
+  }
+  .links a:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+  /* ---------- 更多作品 ---------- */
+  .more-item{display:flex;gap:13px;align-items:flex-start;margin:15px 0 0}
+  .more-item .shot{margin:0;flex:0 0 132px;max-width:132px}
+  .more-item .shot .hint{min-height:88px;font-size:11px}
+  .more-item .txt{flex:1 1 auto;min-width:0}
+  .more-item .txt p{margin:0;font-size:13.5px;color:var(--body)}
+  .more-item .txt b{color:var(--ink)}
+
+  /* ---------- 实习 ---------- */
+  .wide{grid-column:1/-1;margin-top:17px}
+  .job-title{font-size:15.5px;font-weight:700;margin:0 0 2px}
+  .job-date{font-size:13px;color:var(--muted);margin:0 0 9px}
+
+  footer{
+    margin-top:56px;padding-top:22px;border-top:1px solid var(--line);
+    font-size:12.5px;color:#9aa4b0;text-align:center;
+  }
+
+  /* ---------- 手机 ---------- */
+  @media (max-width:760px){
+    .wrap{padding:38px 18px 72px}
+    h1{font-size:27px}
+    .role{font-size:15px}
+    .stats{grid-template-columns:repeat(2,1fr);gap:9px}
+    .stat .n{font-size:23px}
+    .grid{grid-template-columns:1fr;gap:15px}
+    .more-item{flex-direction:column;gap:10px}
+    .more-item .shot{flex:1 1 auto;max-width:100%}
+    .more-item .shot .hint{min-height:150px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>赵子奕</h1>
+    <p class="role">产品流程设计 ｜ AI 产品实践 ｜ 独立编码</p>
+    <p class="meta">
+      2027 届 · 河北农业大学 · 林学（本科）
+      <span class="dot">·</span><a href="mailto:zhaoziyi1024@foxmail.com">zhaoziyi1024@foxmail.com</a>
+      <span class="dot">·</span><a href="resume.pdf">简历 PDF</a>
+      <span class="dot">·</span>微信：a18233262479
+    </p>
+  </header>
+
+  <section class="stats">
+    <div class="stat"><span class="n">5</span><span class="l">个作品</span></div>
+    <div class="stat"><span class="n">3</span><span class="l">个在线可试玩</span></div>
+    <div class="stat"><span class="n">6</span><span class="l">条产品线（实习交付）</span></div>
+    <div class="stat"><span class="n">3,167</span><span class="l">行 · 48h 单文件交付</span></div>
+  </section>
+
+  <p class="spine">下面几个作品方向不同，做法是一样的：<b>先划掉不该做的，再动手。</b></p>
+
+  <div class="grid">
+
+    <!-- ================= ① ================= -->
+    <article class="pcard">
+      <h3><span class="idx">01</span>AI Employee Center</h3>
+      <p class="sub">企业级 AI 员工平台</p>
+
+      <figure class="shot">
+        <img src="images/aec.jpg" alt="AI Employee Center 首页">
+        <span class="hint">images/aec.jpg</span>
+      </figure>
+
+      <p class="decision"><b>边界决策</b>不做「什么都能问」的全能助手，而是定义 3 类角色各自能做什么、不能做什么</p>
+
+      <p class="body">把「经营分析 / 增长运营 / 用户洞察」三类重复人力活，抽象成 <b>3 个 AI 员工</b>，各自有明确的角色边界与统一工作流。</p>
+
+      <p class="flow">增长目标 → 业务现状 → 智能诊断 → 增长机会 → 实验方案 → AI 增长决策 → 行动计划</p>
+
+      <p class="tech">React 18 + TypeScript + Vite + Tailwind · 纯前端模拟</p>
+
+      <p class="links">
+        <a href="https://zzz-qwq.github.io/ai-employee-center/" target="_blank" rel="noopener">在线 Demo</a>
+        <a href="aec-prd.pdf" target="_blank" rel="noopener">PRD（15 页）</a>
+      </p>
+    </article>
+
+    <!-- ================= ② ================= -->
+    <article class="pcard">
+      <h3><span class="idx">02</span>乌合之帖 · Citogenesis</h3>
+      <p class="sub">知乎黑客松 48h 互动叙事游戏</p>
+
+      <figure class="shot">
+        <img src="images/citogenesis.jpg" alt="乌合之帖 游戏画面">
+        <span class="hint">images/citogenesis.jpg</span>
+      </figure>
+
+      <p class="decision"><b>边界决策</b>不让选择产生死局 —— 线索只改路径，不改写触发条件</p>
+
+      <p class="body">48 小时极限交付的互动叙事游戏。单文件 <b>3,167 行</b> Three.js。剧本、3D、代码全程 AI 协作开发（ChatGPT / DeepSeek / 智谱清言 / 即梦）。</p>
+
+      <p class="tech">Three.js / WebGL · 单文件 · 零外部依赖</p>
+
+      <p class="links">
+        <a href="https://zzz-qwq.github.io/citogenesis/" target="_blank" rel="noopener">在线试玩</a>
+        <a href="https://zzz-qwq.github.io/citogenesis/demo.mp4" target="_blank" rel="noopener">演示视频</a>
+      </p>
+    </article>
+
+    <!-- ================= ③ ================= -->
+    <article class="pcard">
+      <h3><span class="idx">03</span>桌面待办</h3>
+      <p class="sub">Python 桌面浮窗效率工具</p>
+
+      <figure class="shot">
+        <img src="images/todo.jpg" alt="桌面待办 截图">
+        <span class="hint">images/todo.jpg</span>
+      </figure>
+
+      <p class="decision"><b>边界决策</b>不做常规窗口 —— 痛点不是「功能全」，是「看得见又不打扰」</p>
+
+      <p class="body"><b>1,007 行</b> Python + tkinter 浮窗待办，置顶 / 半透明 / 无边框。集成 DeepSeek「AI 自动整理」；没配 API Key 时自动降级为本地规则整理，双击装上就能用。</p>
+
+      <p class="tech">Python + tkinter · 单文件分发 · 无需安装</p>
+
+      <p class="links">
+        <a href="https://github.com/Zzz-qwq/desktop-todo" target="_blank" rel="noopener">源码仓库</a>
+      </p>
+    </article>
+
+    <!-- ================= ④ ================= -->
+    <article class="pcard">
+      <h3><span class="idx">04</span>更多作品</h3>
+      <p class="sub">长期在跑的 AI 应用</p>
+
+      <p class="decision" style="margin-top:15px"><b>边界决策</b>给它明确的「生活节奏」，而不是随叫随到的工具</p>
+
+      <p class="body" style="margin-top:13px"><b>微信机器人「小鱼」</b> —— 常驻微信的 AI 好友机器人，wxauto + DeepSeek，SQLite 长期对话记忆，已持续运行数月。</p>
+
+      <p class="body" style="margin-top:11px"><b>AI 品牌顾问 Agent</b> —— React 品牌客服 Agent，支持多公司切换。</p>
+
+      <p class="links">
+        <a href="https://zzz-qwq.github.io/ai-brand-agent/" target="_blank" rel="noopener">在线 Demo</a>
+      </p>
+    </article>
+
+  </div>
+
+  <footer>赵子奕 · AI 产品作品集</footer>
+
+</div>
+</body>
+</html>
