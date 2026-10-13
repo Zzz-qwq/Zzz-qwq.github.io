@@ -231,10 +231,12 @@
 
       <div class="detail">
         <p class="decision"><b>边界决策</b>不做常规窗口 —— 痛点不是「功能全」，是「看得见又不打扰」</p>
-        <p class="body">独立发现「功能复杂但提醒触达不足」的问题 —— <b>1,007 行</b> Python + tkinter 浮窗待办，置顶 / 半透明 / 无边框。集成 DeepSeek「AI 自动整理」；没配 API Key 时自动降级为本地规则整理，双击装上就能用。</p>
+        <p class="body">独立发现「功能复杂但提醒触达不足」的问题，做了一个常驻桌面的浮窗待办：置顶 / 半透明 / 无边框。集成 DeepSeek「AI 自动整理」，能把一段邮件或聊天记录直接变成任务清单；没配 API Key 时自动降级为本地规则整理，装上 Python 双击就能用。</p>
+        <p class="body"><b>迭代轨迹</b>（每一轮都由真实使用中的问题触发）：<b>v1</b> 任务会忘 → 常驻浮窗；<b>v2</b> 整理费事 → AI 提取 + <b>人工确认后才写入</b> + 完成即归档；<b>v2.1</b> AI 判错责任人 → 引入「<b>消息视角</b>」，用真实案例做回归测试；<b>v2.2</b> 收敛视觉一致性。</p>
         <p class="body"><b>真实用户验证</b>：发布到 AI 社交平台，累计获得 <b>20+ 人关注</b>、<b>10+ 位用户实际使用</b>并给出正向反馈，据此完成一轮界面迭代 —— 走通「发布 → 反馈 → 迭代」闭环。</p>
-        <p class="tech">Python + tkinter · 单文件分发 · 无需安装</p>
+        <p class="tech">Python + tkinter · 零第三方依赖 · 三个模块约 1,700 行</p>
         <p class="links">
+          <a href="https://github.com/Zzz-qwq/desktop-todo#快速开始" target="_blank" rel="noopener">安装说明</a>
           <a href="https://github.com/Zzz-qwq/desktop-todo" target="_blank" rel="noopener">源码仓库</a>
         </p>
       </div>
