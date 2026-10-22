@@ -196,6 +196,20 @@
  .dagoban-flow-map .flow-branch:before,.dagoban-flow-map .flow-branch-col:before{display:none}
  .dagoban-flow-map .flow-branch-col{border-left:1px solid rgba(145,168,209,.2);padding-left:12px}
 }
+
+/* ---- PDF 预览层：与流程图画廊同一套语汇 ---- */
+.pdf-viewer{position:fixed;inset:0;z-index:70;display:none;flex-direction:column;background:rgba(2,8,19,.975);backdrop-filter:blur(22px);color:#eaf1ff;padding:clamp(14px,3vh,28px) clamp(14px,4vw,56px)}
+.pdf-viewer.open{display:flex;animation:fade .24s ease}
+.pdf-head{display:flex;align-items:center;gap:12px;padding-bottom:14px;border-bottom:1px solid rgba(145,174,220,.18);margin-bottom:14px}
+.pdf-head h3{margin:0;flex:1;min-width:0;font-size:15px;font-weight:500;letter-spacing:.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pdf-tool{appearance:none;font:inherit;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(156,184,221,.35);background:rgba(10,22,42,.55);border-radius:99px;padding:8px 15px;color:#eaf1ff;text-decoration:none;font-size:12px;cursor:pointer;transition:border-color .2s,background .2s}
+.pdf-tool:hover{border-color:rgba(200,220,250,.7);background:rgba(20,38,66,.8)}
+.pdf-frame{flex:1;width:100%;min-height:0;border:0;border-radius:12px;background:#0a1220}
+@media (max-width:640px){
+ .pdf-viewer{padding:12px}
+ .pdf-head h3{font-size:13px}
+ .pdf-tool{padding:7px 12px;font-size:11px}
+}
 </style></head><body><canvas id="starfield" aria-hidden="true" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0"></canvas><canvas id="sky" aria-hidden="true"></canvas><div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 <header class="top"><span>◐ &nbsp; ZHAO ZIYI</span><nav class="links"><a href="#work" id="workLink">作品探索</a><a href="#profile" id="aboutLink">关于我</a><a href="https://zzz-qwq.github.io/resume.pdf" target="_blank" rel="noopener">简历 ↗</a></nav></header>
 <main class="layout"><section class="intro" id="about"><div class="eyebrow">AI PRODUCT DESIGN · AGENT WORKFLOW</div><h1>让想法，成为<br><span>可以运行的产品。</span></h1><p>你好，我是赵子奕。比起只停留在想法里，我更喜欢把问题拆开，做成一个能跑起来、能被人真正用到的东西。</p><div class="stats"><div><strong>06</strong><small>正在做的项目</small></div><div><strong>03</strong><small>在线可试玩</small></div><div><strong>48h</strong><small>独立交付</small></div></div></section>
@@ -277,7 +291,7 @@
 const data=[
 {title:"乌合之帖 · Citogenesis",kicker:"INTERACTIVE NARRATIVE",desc:"知乎黑客松 48 小时互动叙事游戏。以 Three.js 构建单文件体验，把信息传播与群体叙事变成可探索的互动过程。",tags:["Three.js","互动叙事","48h Hackathon"],image:"https://zzz-qwq.github.io/images/citogenesis.jpg",mark:"C.",link:"https://zzz-qwq.github.io/citogenesis/",storyFlow:true},
 {title:"桌面待办",kicker:"AI PRODUCT · DESKTOP",desc:"基于 Python tkinter 的桌面浮窗。AI 帮忙整理待办，但由用户确认后再写入，强调可控性、轻量体验与真实反馈。",tags:["Python","DeepSeek","Human-in-the-loop"],image:"https://zzz-qwq.github.io/images/todo.jpg",mark:"AI",link:"https://github.com/Zzz-qwq/desktop-todo",productFlow:true},
-{title:"AI Employee Center",kicker:"AGENT WORKFLOW",desc:"岗位化 AI Agent 协作平台原型，展示不同 Agent 的任务分工与协作流程。React 前端交互原型，配套 PRD。",tags:["React","TypeScript","Agent"],image:"https://zzz-qwq.github.io/images/aec.jpg",mark:"AEC",link:"https://zzz-qwq.github.io/ai-employee-center/"},
+{title:"AI Employee Center",kicker:"AGENT WORKFLOW",desc:"岗位化 AI Agent 协作平台原型，展示不同 Agent 的任务分工与协作流程。React 前端交互原型，配套 PRD。",tags:["React","TypeScript","Agent"],image:"https://zzz-qwq.github.io/images/aec.jpg",mark:"AEC",link:"https://zzz-qwq.github.io/ai-employee-center/",extraLinks:[{label:"查看 PRD ↗",url:"https://zzz-qwq.github.io/aec-prd.pdf"}]},
 {title:"AI 品牌顾问 Agent",kicker:"AI APPLICATION",desc:"从品牌策略与内容决策出发，尝试把 AI Agent 的能力放进一条真正能使用的工作流里。",tags:["AI Agent","产品设计","Workflow"],image:"https://zzz-qwq.github.io/images/brand.jpg",mark:"AI+",link:"https://zzz-qwq.github.io/ai-brand-agent/"},
 {title:"搭个伴 · 技能互换",kicker:"SKILL EXCHANGE · WEB",desc:"技能互换社区的产品雏形：把“我会一点”和“我想学”连起来，从匹配、发出邀请、约定计划到完成交换串成一条闭环。单文件实现，适配不同屏幕宽度，数据保存在本地浏览器。",tags:["产品原型","匹配机制","响应式"],image:"https://zzz-qwq.github.io/images/dagoban.jpg",mark:"伴",link:"https://zzz-qwq.github.io/dagoban-skill-exchange/",dagobanFlow:true},
 {title:"微信 Claude Bot",kicker:"PERSONAL AI EXPERIMENT",desc:"一个还在实验中的微信 AI 好友：用 Claude 聊天，尝试加入记忆、天气、表情包和主动问候。由于依赖 PC 微信 Hook，兼容性和账号风险都需要谨慎评估，目前不开放在线体验。",tags:["Claude API","Python","对话记忆","个人实验"],image:"",mark:"小C",link:"#",noteOnly:true},
@@ -346,9 +360,10 @@ function open(i){
  const more=document.querySelector("#moreLinks");more.innerHTML="";more.style.display=p.moreWorks?"grid":"none";
  if(p.moreWorks){
   const items=[
-   {title:"AI 产品竞品分析",desc:"横向比较 AI 工具与产品方案，整理功能差异、定位和产品机会。",label:"打开分析材料 ↗",url:"https://zzz-qwq.github.io/ai-tools-comparison.pdf"}
+   {title:"AI 产品竞品分析",desc:"横向比较 AI 工具与产品方案，整理功能差异、定位和产品机会。",label:"打开分析材料 ↗",url:"https://zzz-qwq.github.io/ai-tools-comparison.pdf"},
+   {title:"游戏体验分析 · 开心消消乐 / 假日乐消消",desc:"从实际游玩出发，拆解两款三消游戏的难度曲线、反馈节奏与商业化触点，样本为第 6 / 16 / 25 关。",label:"打开体验分析 ↗",url:"https://zzz-qwq.github.io/game-ux-analysis.pdf"}
   ];
-  items.forEach(item=>{const a=document.createElement(item.internal?"button":"a");a.className="more-link-card";if(item.url){a.href=item.url;a.target="_blank";a.rel="noopener"}else{a.type="button";a.addEventListener("click",()=>{document.querySelector("#desc").textContent="小鱼：微信场景里的轻量 AI 助手实验。后续可以补充它的目标用户、触发方式与演示链接。";a.querySelector("em").textContent="简介已展开"})}a.innerHTML="<strong></strong><span></span><em></em>";a.querySelector("strong").textContent=item.title;a.querySelector("span").textContent=item.desc;a.querySelector("em").textContent=item.label;more.append(a)});
+  items.forEach(item=>{const a=document.createElement(item.internal?"button":"a");a.className="more-link-card";if(item.title)a.dataset.pdfTitle=item.title;if(item.url){a.href=item.url;a.target="_blank";a.rel="noopener"}else{a.type="button";a.addEventListener("click",()=>{document.querySelector("#desc").textContent="小鱼：微信场景里的轻量 AI 助手实验。后续可以补充它的目标用户、触发方式与演示链接。";a.querySelector("em").textContent="简介已展开"})}a.innerHTML="<strong></strong><span></span><em></em>";a.querySelector("strong").textContent=item.title;a.querySelector("span").textContent=item.desc;a.querySelector("em").textContent=item.label;more.append(a)});
  }
  detail.classList.add("open");
 }
@@ -571,6 +586,55 @@ for(let i=0;i<58;i++){let s=document.createElement("i");s.style.left=Math.random
     });
   }
 
+})();
+</script>
+
+<section class="pdf-viewer" id="pdfViewer" aria-hidden="true" aria-label="文档预览">
+  <div class="pdf-head">
+    <h3 id="pdfTitle">文档</h3>
+    <a class="pdf-tool" id="pdfOpenNew" href="#" target="_blank" rel="noopener">新窗口 ↗</a>
+    <button class="pdf-tool" id="pdfClose" type="button">关闭 ×</button>
+  </div>
+  <iframe class="pdf-frame" id="pdfFrame" title="文档预览"></iframe>
+</section>
+
+<script>
+(()=>{
+  const viewer=document.getElementById("pdfViewer"),
+        frame=document.getElementById("pdfFrame"),
+        titleEl=document.getElementById("pdfTitle"),
+        openNew=document.getElementById("pdfOpenNew");
+
+  function openPdf(url,name){
+    titleEl.textContent=name||"文档";
+    frame.src=url;
+    openNew.href=url;
+    viewer.classList.add("open");
+    viewer.setAttribute("aria-hidden","false");
+  }
+  function closePdf(){
+    viewer.classList.remove("open");
+    viewer.setAttribute("aria-hidden","true");
+    frame.src="about:blank";
+  }
+
+  document.getElementById("pdfClose").addEventListener("click",closePdf);
+  viewer.addEventListener("click",e=>{if(e.target===viewer)closePdf()});
+
+  /* 捕获阶段拦下 Esc：避免同时触发页面原本的关闭逻辑把详情页也关掉 */
+  window.addEventListener("keydown",e=>{
+    if(e.key==="Escape"&&viewer.classList.contains("open")){
+      e.stopPropagation();e.preventDefault();closePdf();
+    }
+  },true);
+
+  /* 所有指向 PDF 的链接都走站内预览，不再交给浏览器决定下载还是打开 */
+  document.addEventListener("click",e=>{
+    const a=e.target.closest('a[href*=".pdf"]');
+    if(!a||a.closest(".pdf-viewer")||a.id==="pdfOpenNew")return;
+    e.preventDefault();
+    openPdf(a.href,a.dataset.pdfTitle||a.textContent.replace(/[↗\s]+$/,""));
+  },true);
 })();
 </script>
 
