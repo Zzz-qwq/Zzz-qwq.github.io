@@ -205,6 +205,7 @@
 .pdf-tool{appearance:none;font:inherit;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(156,184,221,.35);background:rgba(10,22,42,.55);border-radius:99px;padding:8px 15px;color:#eaf1ff;text-decoration:none;font-size:12px;cursor:pointer;transition:border-color .2s,background .2s}
 .pdf-tool:hover{border-color:rgba(200,220,250,.7);background:rgba(20,38,66,.8)}
 .pdf-frame{flex:1;width:100%;min-height:0;border:0;border-radius:12px;background:#0a1220}
+.media-video{flex:1;width:100%;min-height:0;border-radius:12px;background:#000;object-fit:contain}
 @media (max-width:640px){
  .pdf-viewer{padding:12px}
  .pdf-head h3{font-size:13px}
@@ -289,7 +290,7 @@
 // Ambient night sky + the original subtle cursor glow and stardust trail.
 (()=>{const c=document.getElementById('sky'),ctx=c.getContext('2d'),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,fine=matchMedia('(hover: hover) and (pointer: fine)').matches;let w=0,h=0,dpr=1,stars=[],particles=[],last={x:-1000,y:-1000};function resize(){dpr=Math.min(devicePixelRatio||1,1.5);w=innerWidth;h=innerHeight;c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);c.style.width=w+'px';c.style.height=h+'px';ctx.setTransform(dpr,0,0,dpr,0,0);stars=Array.from({length:Math.min(190,Math.max(75,Math.round(w*h/6500)))},()=>({x:Math.random()*w,y:Math.random()*h,r:.28+Math.random()*1.05,a:.24+Math.random()*.68,p:Math.random()*6.28,s:.35+Math.random()*1.1,hue:Math.random()}))}function draw(t=0){ctx.clearRect(0,0,w,h);for(const s of stars){let pulse=reduce?s.a:s.a*(.76+.24*Math.sin(s.p+t*.0005*s.s));ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=s.hue>.82?`rgba(244,220,162,${pulse})`:`rgba(205,218,255,${pulse})`;ctx.fill()}for(let i=particles.length-1;i>=0;i--){let q=particles[i];q.x+=q.vx;q.y+=q.vy;q.life-=q.decay;q.vx*=.985;q.vy*=.985;if(q.life<=0){particles.splice(i,1);continue}ctx.globalAlpha=Math.max(0,q.life);ctx.fillStyle=q.color;ctx.beginPath();ctx.arc(q.x,q.y,q.size*q.life,0,Math.PI*2);ctx.fill()}ctx.globalAlpha=1;if(!reduce)requestAnimationFrame(draw)}addEventListener('resize',resize,{passive:true});addEventListener('pointermove',e=>{if(!fine||reduce)return;document.body.classList.add('has-pointer');let g=document.getElementById('cursorGlow');g.style.left=e.clientX+'px';g.style.top=e.clientY+'px';if(Math.hypot(e.clientX-last.x,e.clientY-last.y)>8){particles.push({x:e.clientX,y:e.clientY,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5-.15,life:1,decay:.04+Math.random()*.02,size:1+Math.random()*2,color:Math.random()>.25?'rgba(255,229,171,.95)':'rgba(203,213,255,.92)'});if(particles.length>34)particles.splice(0,particles.length-34);last.x=e.clientX;last.y=e.clientY}},{passive:true});resize();if(!reduce)requestAnimationFrame(draw)})();
 const data=[
-{title:"乌合之帖 · Citogenesis",kicker:"INTERACTIVE NARRATIVE",desc:"知乎黑客松 48 小时互动叙事游戏。以 Three.js 构建单文件体验，把信息传播与群体叙事变成可探索的互动过程。",tags:["Three.js","互动叙事","48h Hackathon"],image:"https://zzz-qwq.github.io/images/citogenesis.jpg",mark:"C.",link:"https://zzz-qwq.github.io/citogenesis/",storyFlow:true},
+{title:"乌合之帖 · Citogenesis",kicker:"INTERACTIVE NARRATIVE",desc:"知乎黑客松 48 小时互动叙事游戏。以 Three.js 构建单文件体验，把信息传播与群体叙事变成可探索的互动过程。",tags:["Three.js","互动叙事","48h Hackathon"],image:"https://zzz-qwq.github.io/images/citogenesis.jpg",mark:"C.",link:"https://zzz-qwq.github.io/citogenesis/",storyFlow:true,video:"https://zzz-qwq.github.io/citogenesis-promo.mp4"},
 {title:"桌面待办",kicker:"AI PRODUCT · DESKTOP",desc:"基于 Python tkinter 的桌面浮窗。AI 帮忙整理待办，但由用户确认后再写入，强调可控性、轻量体验与真实反馈。",tags:["Python","DeepSeek","Human-in-the-loop"],image:"https://zzz-qwq.github.io/images/todo.jpg",mark:"AI",link:"https://github.com/Zzz-qwq/desktop-todo",productFlow:true},
 {title:"AI Employee Center",kicker:"AGENT WORKFLOW",desc:"岗位化 AI Agent 协作平台原型，展示不同 Agent 的任务分工与协作流程。React 前端交互原型，配套 PRD。",tags:["React","TypeScript","Agent"],image:"https://zzz-qwq.github.io/images/aec.jpg",mark:"AEC",link:"https://zzz-qwq.github.io/ai-employee-center/",extraLinks:[{label:"查看 PRD ↗",url:"https://zzz-qwq.github.io/aec-prd.pdf"}]},
 {title:"AI 品牌顾问 Agent",kicker:"AI APPLICATION",desc:"从品牌策略与内容决策出发，尝试把 AI Agent 的能力放进一条真正能使用的工作流里。",tags:["AI Agent","产品设计","Workflow"],image:"https://zzz-qwq.github.io/images/brand.jpg",mark:"AI+",link:"https://zzz-qwq.github.io/ai-brand-agent/"},
@@ -355,7 +356,7 @@ function open(i){
  const preview=document.querySelector("#preview");preview.innerHTML=p.mark;preview.classList.remove("image-fallback");
  if(p.image){const im=document.createElement("img");im.src=p.image;im.alt=p.title+"封面";im.onerror=()=>{im.remove();preview.classList.add("image-fallback")};preview.append(im)}
  const link=document.querySelector("#projectLink");link.href=p.link;link.style.display=p.link==="#"?"none":"inline-block";
- const extra=document.querySelector("#extraProjectLink");if(p.extraLinks&&p.extraLinks.length){extra.href=p.extraLinks[0].url;extra.textContent=p.extraLinks[0].label;extra.style.display="inline-block"}else{extra.style.display="none"}
+ const extra=document.querySelector("#extraProjectLink");if(p.video){extra.href=p.video;extra.textContent=p.videoLabel||"观看宣传片 ↗";extra.dataset.video="1";extra.style.display="inline-block"}else if(p.extraLinks&&p.extraLinks.length){extra.href=p.extraLinks[0].url;extra.textContent=p.extraLinks[0].label;extra.removeAttribute("data-video");extra.style.display="inline-block"}else{extra.style.display="none"}
  const flowLink=document.querySelector("#flowProjectLink");flowLink.style.display=(p.productFlow||p.storyFlow||p.dagobanFlow)?"inline-block":"none";
  const more=document.querySelector("#moreLinks");more.innerHTML="";more.style.display=p.moreWorks?"grid":"none";
  if(p.moreWorks){
@@ -598,6 +599,15 @@ for(let i=0;i<58;i++){let s=document.createElement("i");s.style.left=Math.random
   <iframe class="pdf-frame" id="pdfFrame" title="文档预览"></iframe>
 </section>
 
+<section class="pdf-viewer" id="mediaViewer" aria-hidden="true" aria-label="视频预览">
+  <div class="pdf-head">
+    <h3 id="mediaTitle">宣传片</h3>
+    <a class="pdf-tool" id="mediaOpenNew" href="#" target="_blank" rel="noopener">新窗口 ↗</a>
+    <button class="pdf-tool" id="mediaClose" type="button">关闭 ×</button>
+  </div>
+  <video class="media-video" id="mediaVideo" controls playsinline preload="none" poster="https://zzz-qwq.github.io/images/citogenesis-promo-poster.jpg"></video>
+</section>
+
 <script>
 (()=>{
   const viewer=document.getElementById("pdfViewer"),
@@ -621,7 +631,37 @@ for(let i=0;i<58;i++){let s=document.createElement("i");s.style.left=Math.random
   document.getElementById("pdfClose").addEventListener("click",closePdf);
   viewer.addEventListener("click",e=>{if(e.target===viewer)closePdf()});
 
+  /* 视频宣传片：复用同一层外壳，只是把 iframe 换成 <video> */
+  const media=document.getElementById("mediaViewer"),
+        video=document.getElementById("mediaVideo"),
+        mediaTitle=document.getElementById("mediaTitle"),
+        mediaOpenNew=document.getElementById("mediaOpenNew");
+
+  function openVideo(url,name){
+    mediaTitle.textContent=name||"宣传片";
+    video.src=url;
+    mediaOpenNew.href=url;
+    media.classList.add("open");
+    media.setAttribute("aria-hidden","false");
+    video.play().catch(()=>{});
+  }
+  function closeVideo(){
+    video.pause();
+    media.classList.remove("open");
+    media.setAttribute("aria-hidden","true");
+    video.removeAttribute("src");
+    video.load();
+  }
+
+  document.getElementById("mediaClose").addEventListener("click",closeVideo);
+  media.addEventListener("click",e=>{if(e.target===media)closeVideo()});
+
   /* 捕获阶段拦下 Esc：避免同时触发页面原本的关闭逻辑把详情页也关掉 */
+  window.addEventListener("keydown",e=>{
+    if(e.key==="Escape"&&media.classList.contains("open")){
+      e.stopPropagation();e.preventDefault();closeVideo();
+    }
+  },true);
   window.addEventListener("keydown",e=>{
     if(e.key==="Escape"&&viewer.classList.contains("open")){
       e.stopPropagation();e.preventDefault();closePdf();
@@ -634,6 +674,14 @@ for(let i=0;i<58;i++){let s=document.createElement("i");s.style.left=Math.random
     if(!a||a.closest(".pdf-viewer")||a.id==="pdfOpenNew")return;
     e.preventDefault();
     openPdf(a.href,a.dataset.pdfTitle||a.textContent.replace(/[↗\s]+$/,""));
+  },true);
+
+  /* 宣传片链接走站内视频层，同样不跳走页面 */
+  document.addEventListener("click",e=>{
+    const a=e.target.closest('a[data-video]');
+    if(!a||a.closest(".pdf-viewer")||a.closest("#flowExplorer")||a.closest("#flowStepOverlay"))return;
+    e.preventDefault();
+    openVideo(a.href,a.textContent.replace(/[↗\s]+$/,""));
   },true);
 })();
 </script>
